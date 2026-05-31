@@ -1,0 +1,19 @@
+{
+  "name": "team-protocol",
+  "description": "Three-identity (manager / dev / reviewer) collaboration protocol skill that orchestrates a multi-step dev pipeline (dispatch -> code -> open PR -> review -> merge). Generic; not bound to any specific repo, branch, or isolation mechanism.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jiahui-Gu"
+  },
+  "homepage": "https://github.com/Jiahui-Gu/team-protocol-plugin",
+  "repository": "https://github.com/Jiahui-Gu/team-protocol-plugin",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "multi-agent",
+    "orchestration",
+    "code-review",
+    "subagent",
+    "workflow"
+  ]
+}
