@@ -1,6 +1,6 @@
 ---
 name: team-protocol
-description: Three-identity (manager / dev / reviewer) collaboration protocol that orchestrates a multi-step dev pipeline (dispatch -> code -> open PR -> review -> merge). Trigger signals (visible the moment a task arrives, no need to wait until you're "overloaded"): (1) the task needs code written and a PR opened / reviewed / merged; (2) there are several mutually independent subtasks that can be driven in parallel; (3) any "dispatch a subagent / dispatch a worker / parallelize the work" multi-agent coordination. Match any one -> use it. Use when orchestrating multi-step dev work (implement -> PR -> review -> merge), dispatching parallel subagents/workers, or any multi-agent coordination. The first thing to do on receiving a prompt is Read this SKILL.md to determine your identity, then Read the matching references file. Generic version, not bound to any specific repo/branch/isolation mechanism.
+description: Three-identity (manager / dev / reviewer) collaboration protocol orchestrating a multi-step dev pipeline (dispatch -> code -> open PR -> review -> merge). Use when orchestrating multi-step dev work (implement -> PR -> review -> merge), dispatching parallel subagents/workers, or any multi-agent coordination. On receiving a prompt, first Read this SKILL.md to determine your identity, then Read the matching references file. Generic, not bound to any specific repo/branch/isolation mechanism.
 ---
 
 # team-protocol
