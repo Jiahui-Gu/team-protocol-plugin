@@ -49,6 +49,35 @@ skills/team-protocol/
 
 After install, `team-protocol` appears in the skill list and triggers automatically when a task needs the multi-step dev pipeline or parallel subagent dispatch.
 
+## /team — opt-in enforcement
+
+The plugin ships with a hook + a `/team` slash command that can re-inject the team-protocol entry-point reminder into the model's context across session boundaries. The hook is **OFF by default** — installing the plugin alone changes nothing about your runtime; you have to opt in.
+
+### Usage
+
+- `/team` — show current status (global / session / effective)
+- `/team on` — enable for the current session
+- `/team on global` — enable for every session on this machine
+- `/team off` — disable for the current session
+- `/team off global` — disable globally
+
+The toggle is stored as a flag file under `~/.claude/hooks/state/` (user-global, intentionally not plugin-scoped), so it survives plugin upgrade / reinstall.
+
+### Mechanism
+
+When ON, the hook fires at:
+
+- **SessionStart** — every new Claude Code session
+- **PostCompact** — right after the model's context window is compacted
+
+It injects a short reminder pointing the model at this plugin's `SKILL.md`, so the team-protocol identity decision (manager / dev / reviewer) survives compaction. It does **not** fire on every user prompt, so the per-turn token cost is approximately zero after the initial injection.
+
+### Why not UserPromptSubmit
+
+A `UserPromptSubmit` hook (the previous local-only approach) achieves the same compact-survival property but re-injects the reminder on every user message — verbose and noisy. `SessionStart` + `PostCompact` is a leaner alternative for users who want the same guarantee at lower per-turn cost.
+
+Trade-off: between two compactions the reminder ages out of the visible context window faster than per-prompt injection. In practice the `SKILL.md` and `references/` files remain reachable via the model's `Read` tool, so the protocol stays enforceable.
+
 ## Scope
 
 - **In scope:** high-level workflow orchestration — who is which identity, when to dispatch, to whom, what to judge before dispatching and after receiving work back, how to guard the quality gate.
